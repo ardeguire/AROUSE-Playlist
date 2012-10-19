@@ -12,21 +12,17 @@
 <label class="control-label" for="artistInput">Enter an artist</label>
 <div class="controls">
 <input type="text" id="artistInput"/>
-<button type="button" class="btn" onclick="mbQueryArtist(this.form)" id="artistInput">Search</button>
+<button type="button" class="btn" onclick="mbQueryArtist(this.form)" id="artistQueryButton">Search</button>
 </div>
 </div>
 </form>
 <div id="artistResults">
-<p>Artist Results</p>
 </div>
 <div id="albumResults">
-Album Results
 </div>
 <div id="releaseResults">
-Release Results
 </div>
 <div id="songResults">
-Song Results
 </div>
 </div>
 <div class="span6" id="displayFrame"><!-- eventually to be moved to external file -->

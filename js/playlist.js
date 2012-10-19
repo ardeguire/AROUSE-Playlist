@@ -2,27 +2,20 @@ function XMLRequest(sourceURL){
   var xmlRequest = new XMLHttpRequest();
   xmlRequest.open("GET",sourceURL,false);
   xmlRequest.send();
-  //var xmlDoc=xmlRequest.responseXML;
   return (xmlRequest.responseXML);
-}
-
-function displayResults(divID){
-  document.getElementById(divID).style.display="inline";
 }
 
 function clearResultDiv(divID){
   $("#"+divID).empty();
 }
-//enter artist
 
 //query MBDB
 function mbQueryArtist(form){
 clearResultDiv("artistResults");
-var artistQuery = form.artistQuery.value;
-var artistResults = XMLRequest("http://musicbrainz.org/ws/2/artist?query="+artistQuery);
+var artistInput = form.artistInput.value;
+var artistResults = XMLRequest("http://musicbrainz.org/ws/2/artist?query="+artistInput);
 for (var i=1;i<=artistResults.getElementsByTagName("artist").length;i++){
 $("#artistResults").append("<p>"+i+" "+artistResults.getElementsByTagName("artist")[i-1].childNodes[0].childNodes[0].nodeValue+"</p>");
-displayResults("artistResults");
 }
 }
 /*

@@ -16,9 +16,4 @@
 	font-size: 13px;
 	line-height: 18px;
 	}
-#artistResults,
-#albumResults,
-#releaseResults,
-#songResults {
-	display: none;
 }
