@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>AROUSE - Student Radio at Ohio State</title>
+<!--stylesheets-->
+<link href="css/bootstrap.css" rel="stylesheet" />
+<link href="css/arouse.css" rel="stylesheet" />
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/less-1.3.0.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  setInterval(function(){
+  var frameToRefresh = document.getElementsByName("casterframe");
+  frameToRefresh.src='http://www.caster.fm/status_embed.php?uid=30076';
+  }, 15000)
+});
+</script>
+<!--IE6-8 HTML5 shim-->
+<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->

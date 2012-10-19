@@ -1,0 +1,24 @@
+.outer-round {
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+}
+.inner-round {
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+}
+#stream {background-color:#d0d3d3; margin:10px; padding:10px;}
+#matte {background-color:#900;}
+#readable {background-color:#fff; margin:10px; padding:10px;}
+#nowPlaying {
+	font-family: "Lucida Grande", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 13px;
+	line-height: 18px;
+	}
+#artistResults,
+#albumResults,
+#releaseResults,
+#songResults {
+	display: none;
+}
