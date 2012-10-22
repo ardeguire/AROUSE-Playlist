@@ -22,11 +22,10 @@ return ((number<10)?"0":"") + number;
 }
 
 function writeTable(divToWrite, xmlNodeList) {
-  divToWrite.innerHTML="<table class=\"table\"></table>";
+  divToWrite.innerHTML="<table class=\"table table-hover\"></table>";
   tableToInsert = divToWrite.childNodes[0];
-  tableBody = tableToInsert.createTBody();
-  tableHead = tableToInsert.createTHead();
-  headRow = tableHead.insertRow(-1);
+//  tableHead = tableToInsert.createTHead();
+  headRow = tableToInsert.insertRow(0);
   numHead = headRow.insertCell(0);
   numHead.innerHTML="<th>#</th>";
   if (xmlNodeList.length==0){
@@ -56,7 +55,7 @@ function writeTable(divToWrite, xmlNodeList) {
   }
   for (var i=1;i<=xmlNodeList.length;i++) {
     item = xmlNodeList[i-1];
-    row=tableBody.insertRow(-1);
+    row=tableToInsert.insertRow(-1);
     cellNum = row.insertCell(0);
     cellNum.innerHTML=i;
     if (item.nodeName == "artist"){
