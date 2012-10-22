@@ -24,7 +24,6 @@ return ((number<10)?"0":"") + number;
 function writeTable(divToWrite, xmlNodeList) {
   divToWrite.innerHTML="<table class=\"table table-hover\"></table>";
   tableToInsert = divToWrite.childNodes[0];
-//  tableHead = tableToInsert.createTHead();
   headRow = tableToInsert.insertRow(0);
   numHead = headRow.insertCell(0);
   numHead.outerHTML="<th>#</th>";
@@ -56,21 +55,24 @@ function writeTable(divToWrite, xmlNodeList) {
   for (var i=1;i<=xmlNodeList.length;i++) {
     item = xmlNodeList[i-1];
     row=tableToInsert.insertRow(-1);
+    row.id=item.getAttribute("id");
     cellNum = row.insertCell(0);
     cellNum.innerHTML=i;
     if (item.nodeName == "artist"){
+      row.onclick=function(){mbQueryAlbums(this.id);};
       cellArtist = row.insertCell(1);
       if (item.getElementsByTagName("disambiguation").length != 0){
-      cellArtist.innerHTML="<a onclick=\"mbQueryAlbums(this.id)\" id=\""+item.getAttribute("id")+"\">"+item.childNodes[0].childNodes[0].nodeValue+"</a> ("+item.getElementsByTagName("disambiguation")[0].childNodes[0].nodeValue+")";
+      cellArtist.innerHTML=item.childNodes[0].childNodes[0].nodeValue+" ("+item.getElementsByTagName("disambiguation")[0].childNodes[0].nodeValue+")";
       } else {
-      cellArtist.innerHTML="<a onclick=\"mbQueryAlbums(this.id)\" id=\""+item.getAttribute("id")+"\">"+item.childNodes[0].childNodes[0].nodeValue+"</a>";
+      cellArtist.innerHTML=item.childNodes[0].childNodes[0].nodeValue;
       }
       cellAlias = row.insertCell(2);
       cellAlias.innerHTML=nodeListToString(item.getElementsByTagName("alias"));
     }
     else if (item.nodeName == "release-group"){
+      row.onclick=function(){mbQueryReleases(this.id);};
       cellAlbum = row.insertCell(1);
-      cellAlbum.innerHTML="<a onclick=\"mbQueryReleases(this.id)\" id=\""+item.getAttribute("id")+"\">"+item.childNodes[0].childNodes[0].nodeValue+"</a> ("+item.getAttribute("type")+")";
+      cellAlbum.innerHTML=item.childNodes[0].childNodes[0].nodeValue+" ("+item.getAttribute("type")+")";
       var cellDate = row.insertCell(2);
       if (item.getElementsByTagName("first-release-date")[0].childNodes[0] === undefined){
         cellDate.innerHTML="";
@@ -79,8 +81,9 @@ function writeTable(divToWrite, xmlNodeList) {
       }
     }
     else if (item.nodeName == "release"){
+      row.onclick=function(){mbQueryTracks(this.id);};
       cellRelease = row.insertCell(1);
-      cellRelease.innerHTML="<a onclick=\"mbQueryTracks(this.id)\" id=\""+item.getAttribute("id")+"\">"+item.getElementsByTagName("title")[0].childNodes[0].nodeValue+"</a> ("+item.getElementsByTagName("country")[0].childNodes[0].nodeValue+")";
+      cellRelease.innerHTML=item.getElementsByTagName("title")[0].childNodes[0].nodeValue+" ("+item.getElementsByTagName("country")[0].childNodes[0].nodeValue+")";
       var cellDate = row.insertCell(2);
       if (item.getElementsByTagName("date")[0] === undefined){
       cellDate.innerHTML="";
@@ -89,8 +92,9 @@ function writeTable(divToWrite, xmlNodeList) {
       }
     }
     else if (item.nodeName == "track"){
+      row.onclick=function(){/*function(this.id);*/};
       cellTrack = row.insertCell(1);
-      cellTrack.innerHTML="<a onclick=\"function(this.id)\" id=\""+item.getAttribute("id")+"\">"+item.getElementsByTagName("title")[0].childNodes[0].nodeValue+"</a>";
+      cellTrack.innerHTML=item.getElementsByTagName("title")[0].childNodes[0].nodeValue;
       cellLength = row.insertCell(2);
       length = item.getElementsByTagName("length")[0].childNodes[0].nodeValue;
       seconds = length/1000;
