@@ -27,7 +27,7 @@ function writeTable(divToWrite, xmlNodeList) {
 //  tableHead = tableToInsert.createTHead();
   headRow = tableToInsert.insertRow(0);
   numHead = headRow.insertCell(0);
-  numHead.innerHTML="<th>#</th>";
+  numHead.outerHTML="<th>#</th>";
   if (xmlNodeList.length==0){
     cell = headRow.insertCell(1);
     cell.outerHTML="<th>This artist doesn't have any releases in the database.</th>";
