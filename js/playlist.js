@@ -59,7 +59,7 @@ function writeTable(divToWrite, xmlNodeList) {
     cellNum = row.insertCell(0);
     cellNum.innerHTML=i;
     if (item.nodeName == "artist"){
-      row.onclick=function(){mbQueryAlbums(this.id);};
+      row.onclick=function(){this.bgColor="#f78989";mbQueryAlbums(this.id);};
       cellArtist = row.insertCell(1);
       if (item.getElementsByTagName("disambiguation").length != 0){
       cellArtist.innerHTML=item.childNodes[0].childNodes[0].nodeValue+" ("+item.getElementsByTagName("disambiguation")[0].childNodes[0].nodeValue+")";
@@ -70,7 +70,7 @@ function writeTable(divToWrite, xmlNodeList) {
       cellAlias.innerHTML=nodeListToString(item.getElementsByTagName("alias"));
     }
     else if (item.nodeName == "release-group"){
-      row.onclick=function(){mbQueryReleases(this.id);};
+      row.onclick=function(){this.bgColor="#f78989";mbQueryReleases(this.id);};
       cellAlbum = row.insertCell(1);
       cellAlbum.innerHTML=item.childNodes[0].childNodes[0].nodeValue+" ("+item.getAttribute("type")+")";
       var cellDate = row.insertCell(2);
@@ -81,7 +81,7 @@ function writeTable(divToWrite, xmlNodeList) {
       }
     }
     else if (item.nodeName == "release"){
-      row.onclick=function(){mbQueryTracks(this.id);};
+      row.onclick=function(){this.bgColor="#f78989";mbQueryTracks(this.id);};
       cellRelease = row.insertCell(1);
       cellRelease.innerHTML=item.getElementsByTagName("title")[0].childNodes[0].nodeValue+" ("+item.getElementsByTagName("country")[0].childNodes[0].nodeValue+")";
       var cellDate = row.insertCell(2);
@@ -92,16 +92,20 @@ function writeTable(divToWrite, xmlNodeList) {
       }
     }
     else if (item.nodeName == "track"){
-      row.onclick=function(){/*function(this.id);*/};
+      row.onclick=function(){/*function(this.id);*/this.bgColor="#f78989";};
       cellTrack = row.insertCell(1);
       cellTrack.innerHTML=item.getElementsByTagName("title")[0].childNodes[0].nodeValue;
       cellLength = row.insertCell(2);
-      length = item.getElementsByTagName("length")[0].childNodes[0].nodeValue;
-      seconds = length/1000;
-      minutes = seconds/60;
-      minutes= Math.floor(minutes);
-      remainderSeconds = pad2(Math.round(seconds%60));
-      cellLength.innerHTML=minutes+":"+remainderSeconds;
+      if (item.getElementsByTagName("length").length != 0) {
+        length = item.getElementsByTagName("length")[0].childNodes[0].nodeValue;
+        seconds = length/1000;
+        minutes = seconds/60;
+        minutes= Math.floor(minutes);
+        remainderSeconds = pad2(Math.round(seconds%60));
+        cellLength.innerHTML=minutes+":"+remainderSeconds;
+      } else {
+        cellLength.innerHTML="";
+      }
     }
   }
 }
