@@ -81,9 +81,16 @@ function writeTable(divToWrite, xmlNodeList) {
       }
     }
     else if (item.nodeName == "release"){
+      countryArray = item.getElementsByTagName("country");
+      formatArray = item.getElementsByTagName("format");
+      trackCount = item.getElementsByTagName("track-list")[0].getAttribute("count");
       row.onclick=function(){this.bgColor="#f78989";mbQueryTracks(this.id);};
       cellRelease = row.insertCell(1);
-      cellRelease.innerHTML=item.getElementsByTagName("title")[0].childNodes[0].nodeValue+" ("+item.getElementsByTagName("country")[0].childNodes[0].nodeValue+")";
+      if (formatArray.length != 0) {
+        cellRelease.innerHTML=item.getElementsByTagName("title")[0].childNodes[0].nodeValue+" ("+countryArray[0].childNodes[0].nodeValue+" - "+trackCount+" track(s) on "+formatArray[0].childNodes[0].nodeValue+")";
+      } else {
+        cellRelease.innerHTML=item.getElementsByTagName("title")[0].childNodes[0].nodeValue+" ("+countryArray[0].childNodes[0].nodeValue+")";
+      }
       var cellDate = row.insertCell(2);
       if (item.getElementsByTagName("date")[0] === undefined){
       cellDate.innerHTML="";
