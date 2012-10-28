@@ -5,7 +5,7 @@
 <body style="margin:2%;">
 <div class="container">
 <div class="row">
-<div class="span8" id="searchFrame"><!-- eventually to be moved to external file -->
+<div class="span6" id="searchFrame"><!-- eventually to be moved to external file -->
 <h2>Playlist Entry</h2>
 <form class="form-horizontal">
 <div class="control-group">
@@ -25,21 +25,17 @@
 <div id="artistResults">
 </div>
 </div>
-<div class="span4" id="displayFrame"><!-- eventually to be moved to external file -->
+<div class="span6" id="displayFrame"><!-- eventually to be moved to external file -->
 <h2>Display</h2>
-<table class="table"><!-- eventually to be pulled from show DB -->
+<table id="playlist" class="table"><!-- eventually to be pulled from show DB -->
+<tbody>
 <tr>
 <th>#</th>
 <th>Artist</th>
 <th>Album</th>
 <th>Song</th>
 </tr>
-<tr>
-<td>1</td>
-<td><a href=#MBIDartist>artist</a></td>
-<td><a href=#MBIDrelease>release</td>
-<td><a href=#MBIDrecording>recording</td>
-<tr>
+</tbody>
 </table>
 </div>
 </div>

@@ -86,10 +86,16 @@ function writeTable(divToWrite, xmlNodeList) {
       trackCount = item.getElementsByTagName("track-list")[0].getAttribute("count");
       row.onclick=function(){this.bgColor="#f78989";mbQueryTracks(this.id);};
       cellRelease = row.insertCell(1);
-      if (formatArray.length != 0) {
+      if (formatArray.length != 0 || countryArray.length != 0) {
+        if (formatArray.length !=0 && countryArray.length != 0) {
         cellRelease.innerHTML=item.getElementsByTagName("title")[0].childNodes[0].nodeValue+" ("+countryArray[0].childNodes[0].nodeValue+" - "+trackCount+" track(s) on "+formatArray[0].childNodes[0].nodeValue+")";
-      } else {
+        } else if (countryArray.length != 0) {
         cellRelease.innerHTML=item.getElementsByTagName("title")[0].childNodes[0].nodeValue+" ("+countryArray[0].childNodes[0].nodeValue+")";
+        } else if (formatArray.length != 0) {
+        cellRelease.innerHTML=item.getElementsByTagName("title")[0].childNodes[0].nodeValue+" ("+trackCount+" track(s) on "+formatArray[0].childNodes[0].nodeValue+")";
+        }
+      } else {
+        cellRelease.innerHTML=item.getElementsByTagName("title")[0].childNodes[0].nodeValue;
       }
       var cellDate = row.insertCell(2);
       if (item.getElementsByTagName("date")[0] === undefined){
@@ -100,7 +106,7 @@ function writeTable(divToWrite, xmlNodeList) {
     }
     else if (item.nodeName == "track"){
       row.id=item.getElementsByTagName("recording")[0].getAttribute("id");
-      row.onclick=function(){/*function(this.id);*/this.bgColor="#f78989";trackMBID=this.id;};
+      row.onclick=function(){this.bgColor="#f78989";trackMBID=this.id;createPlaylistEntry(trackMBID);};
       cellTrack = row.insertCell(1);
       cellTrack.innerHTML=item.getElementsByTagName("title")[0].childNodes[0].nodeValue;
       cellLength = row.insertCell(2);
@@ -157,4 +163,31 @@ trackResults = XMLRequest("http://musicbrainz.org/ws/2/release/"+albumMBID+"?inc
 divSongResults = document.getElementById("songResults");
 trackElements = trackResults.getElementsByTagName("track");
 writeTable(divSongResults,trackElements);
+}
+
+function createPlaylistEntry(trackMBID){
+unfilteredResult = XMLRequest("http://musicbrainz.org/ws/2/recording/"+trackMBID+"?inc=artists+releases");
+recordingNode = unfilteredResult.getElementById(trackMBID);
+artistNode = unfilteredResult.getElementById(artistMBID);
+releaseNode = unfilteredResult.getElementById(albumMBID);
+recordingNode.removeChild(recordingNode.getElementsByTagName("artist-credit")[0]);
+recordingNode.removeChild(recordingNode.getElementsByTagName("release-list")[0]);
+playlistEntry = document.createElement("playlist-entry");
+playlistEntry.appendChild(artistNode);
+playlistEntry.appendChild(releaseNode);
+playlistEntry.appendChild(recordingNode);
+writePlaylistEntryToTable(playlistEntry);
+}
+
+function writePlaylistEntryToTable(xmlNode){
+tableToWrite=document.getElementById("playlist");
+playlistRow=tableToWrite.insertRow(-1);
+plCountCell=playlistRow.insertCell(0);
+plArtistCell=playlistRow.insertCell(1);
+plAlbumCell=playlistRow.insertCell(2);
+plTrackCell=playlistRow.insertCell(3);
+plCountCell.innerHTML=tableToWrite.rows.length-1;
+plArtistCell.innerHTML=xmlNode.getElementsByTagName("name")[0].childNodes[0].nodeValue;
+plAlbumCell.innerHTML=xmlNode.getElementsByTagName("title")[0].childNodes[0].nodeValue;
+plTrackCell.innerHTML=xmlNode.getElementsByTagName("title")[1].childNodes[0].nodeValue;
 }
